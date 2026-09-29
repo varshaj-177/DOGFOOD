@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0f19;
+}
+
+.results-page {
+  min-height: 100vh;
+  padding: 50px;
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      #1c2945,
+      transparent 35%
+    ),
+    #0b0f19;
+}
+
+.results-header {
+  max-width: 1100px;
+  margin: 0 auto 35px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eyebrow {
+  color: #7c9cff;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.subtitle {
+  color: #9ca3af;
+  margin-top: 10px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.result-count {
+  min-width: 120px;
+  padding: 18px;
+
+  text-align: center;
+
+  border: 1px solid #27314a;
+  border-radius: 14px;
+
+  background: #111827;
+}
+
+.result-count strong {
+  display: block;
+  font-size: 28px;
+}
+
+.result-count span {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.logout-button {
+  padding: 12px 20px;
+
+  border: 1px solid #374151;
+  border-radius: 8px;
+
+  background: #1f2937;
+  color: white;
+
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  background: #374151;
+}
+
+.results-card {
+  max-width: 1100px;
+  margin: auto;
+
+  overflow: hidden;
+
+  border: 1px solid #27314a;
+  border-radius: 16px;
+
+  background: #111827;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 18px;
+
+  text-align: left;
+
+  color: #9ca3af;
+
+  font-size: 13px;
+  text-transform: uppercase;
+
+  border-bottom: 1px solid #27314a;
+}
+
+td {
+  padding: 22px 18px;
+
+  border-bottom: 1px solid #20283a;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.rank {
+  font-weight: bold;
+  color: #7c9cff;
+}
+
+.project-name {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.project-description {
+  margin-top: 6px;
+
+  color: #8b95a7;
+
+  font-size: 13px;
+}
+
+.judge-badge {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #1d273b;
+
+  color: #cbd5e1;
+}
+
+.score {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.out-of {
+  color: #7c8494;
+}
+
+.empty-card {
+  max-width: 1100px;
+  margin: 80px auto;
+
+  padding: 60px;
+
+  text-align: center;
+
+  border: 1px solid #27314a;
+  border-radius: 16px;
+
+  background: #111827;
+}
+
+.empty-card p {
+  color: #9ca3af;
+}
+
+.loading {
+  max-width: 1100px;
+  margin: 80px auto;
+
+  text-align: center;
+
+  color: #9ca3af;
+}
