@@ -57,7 +57,6 @@ const register = async (req, res) => {
   }
 };
 
-
 // =========================
 // LOGIN
 // =========================
@@ -142,76 +141,11 @@ const login = async (req, res) => {
   }
 };
 
-
 // =========================
-// TEMPORARY JUDGE PASSWORD RESET
+// EXPORT
 // =========================
-
-const resetJudgePassword = async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    if (!email) {
-      return res.status(400).json({
-        message: "Email is required"
-      });
-    }
-
-    const normalizedEmail = email.trim().toLowerCase();
-
-    const user = await User.findOne({
-      email: normalizedEmail
-    });
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found"
-      });
-    }
-
-    // Make sure we reset only the judge account
-    if (user.role !== "judge") {
-      return res.status(400).json({
-        message: "This account is not a judge account"
-      });
-    }
-
-    const newPassword = "judge@1234";
-
-    const hashedPassword = await bcrypt.hash(
-      newPassword,
-      10
-    );
-
-    user.password = hashedPassword;
-
-    await user.save();
-
-    console.log(
-      "JUDGE PASSWORD RESET:",
-      user.email
-    );
-
-    return res.status(200).json({
-      message: "Judge password reset successfully"
-    });
-
-  } catch (error) {
-    console.error(
-      "RESET PASSWORD ERROR:",
-      error
-    );
-
-    return res.status(500).json({
-      message: "Password reset failed",
-      error: error.message
-    });
-  }
-};
-
 
 module.exports = {
   register,
-  login,
-  resetJudgePassword
+  login
 };

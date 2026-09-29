@@ -4,10 +4,8 @@ const router = express.Router();
 
 const {
   register,
-  login,
-  resetJudgePassword
+  login
 } = require("../controller/authController");
-
 
 // =========================
 // REGISTER
@@ -18,7 +16,6 @@ router.post(
   register
 );
 
-
 // =========================
 // LOGIN
 // =========================
@@ -27,16 +24,5 @@ router.post(
   "/login",
   login
 );
-
-
-// =========================
-// TEMPORARY JUDGE PASSWORD RESET
-// =========================
-
-router.post(
-  "/reset-judge-password",
-  resetJudgePassword
-);
-
 
 module.exports = router;
