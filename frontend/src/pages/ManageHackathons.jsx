@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://dogfood-0f1x.onrender.com/api";
 
 function ManageHackathons() {
   const navigate = useNavigate();

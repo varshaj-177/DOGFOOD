@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://dogfood-0f1x.onrender.com/api";
 
 function JudgeDashboard() {
   const [user, setUser] = useState(null);

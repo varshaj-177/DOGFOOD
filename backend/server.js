@@ -125,29 +125,23 @@ app.get("/", (req, res) => {
 
 mongoose
   .connect(process.env.MONGO_URI)
-
   .then(() => {
+    console.log("MongoDB Connected");
 
     console.log(
-      "MongoDB Connected"
+      "CONNECTED DATABASE:",
+      mongoose.connection.name
     );
 
-    app.listen(
-      5000,
-      () => {
-        console.log(
-          "Server running on port 5000"
-        );
-      }
+    console.log(
+      "CONNECTED HOST:",
+      mongoose.connection.host
     );
 
+    app.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
   })
-
   .catch((error) => {
-
-    console.error(
-      "MongoDB connection failed:",
-      error
-    );
-
+    console.error("MongoDB connection failed:", error);
   });

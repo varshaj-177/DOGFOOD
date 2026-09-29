@@ -15,7 +15,7 @@ function OrganizerResults() {
       return;
     }
 
-    fetch(`http://localhost:5000/api/results/hackathon/${hackathonId}`, {
+    fetch(`https://dogfood-0f1x.onrender.com/api/results/hackathon/${hackathonId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
