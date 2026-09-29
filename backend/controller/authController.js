@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -18,7 +18,6 @@ const register = async (req, res) => {
 
     const normalizedEmail = email.trim().toLowerCase();
 
-    // Check existing user
     const existingUser = await User.findOne({
       email: normalizedEmail
     });
@@ -29,14 +28,8 @@ const register = async (req, res) => {
       });
     }
 
-    // Password hash
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    /*
-      IMPORTANT:
-      Normal registration cannot create organizer/admin accounts.
-      It creates participant accounts only.
-    */
     const user = await User.create({
       name: name.trim(),
       email: normalizedEmail,
@@ -83,7 +76,6 @@ const login = async (req, res) => {
 
     console.log("LOGIN ATTEMPT:", normalizedEmail);
 
-    // Find user
     const user = await User.findOne({
       email: normalizedEmail
     });
@@ -103,7 +95,6 @@ const login = async (req, res) => {
       user.role
     );
 
-    // Compare password
     const passwordMatch = await bcrypt.compare(
       password,
       user.password
@@ -117,7 +108,6 @@ const login = async (req, res) => {
       });
     }
 
-    // JWT
     const token = jwt.sign(
       {
         id: user._id,
@@ -133,9 +123,7 @@ const login = async (req, res) => {
 
     return res.status(200).json({
       message: "Login successful",
-
       token,
-
       user: {
         id: user._id,
         name: user.name,
@@ -155,7 +143,75 @@ const login = async (req, res) => {
 };
 
 
+// =========================
+// TEMPORARY JUDGE PASSWORD RESET
+// =========================
+
+const resetJudgePassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        message: "Email is required"
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const user = await User.findOne({
+      email: normalizedEmail
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    // Make sure we reset only the judge account
+    if (user.role !== "judge") {
+      return res.status(400).json({
+        message: "This account is not a judge account"
+      });
+    }
+
+    const newPassword = "judge@1234";
+
+    const hashedPassword = await bcrypt.hash(
+      newPassword,
+      10
+    );
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+    console.log(
+      "JUDGE PASSWORD RESET:",
+      user.email
+    );
+
+    return res.status(200).json({
+      message: "Judge password reset successfully"
+    });
+
+  } catch (error) {
+    console.error(
+      "RESET PASSWORD ERROR:",
+      error
+    );
+
+    return res.status(500).json({
+      message: "Password reset failed",
+      error: error.message
+    });
+  }
+};
+
+
 module.exports = {
   register,
-  login
+  login,
+  resetJudgePassword
 };
