@@ -1,4 +1,3 @@
-```js
 const dns = require("dns");
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -17,20 +16,20 @@ const app = express();
 // =========================
 
 app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (
-        !origin ||
-        origin === "https://dogfood-nu.vercel.app" ||
-        /^http:\/\/localhost:\d+$/.test(origin)
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true
-  })
+cors({
+origin: function (origin, callback) {
+if (
+!origin ||
+origin === "https://dogfood-nu.vercel.app" ||
+/^http://localhost:\d+$/.test(origin)
+) {
+callback(null, true);
+} else {
+callback(new Error("Not allowed by CORS"));
+}
+},
+credentials: true
+})
 );
 
 // =========================
@@ -68,9 +67,9 @@ app.use("/api/teams", teamRoutes);
 // =========================
 
 app.get("/", (req, res) => {
-  res.json({
-    message: "DOGFOOD backend is running"
-  });
+res.json({
+message: "DOGFOOD backend is running"
+});
 });
 
 // =========================
@@ -78,15 +77,17 @@ app.get("/", (req, res) => {
 // =========================
 
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB Connected");
+.connect(process.env.MONGO_URI)
+.then(() => {
+console.log("MongoDB Connected");
 
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
-    });
-  })
-  .catch((error) => {
-    console.error("MongoDB connection failed:", error);
-  });
 ```
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
+});
+```
+
+})
+.catch((error) => {
+console.error("MongoDB connection failed:", error);
+});
