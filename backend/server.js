@@ -11,36 +11,24 @@ dotenv.config();
 
 const app = express();
 
-// =========================
-// CORS
-// =========================
-
 app.use(
-cors({
-origin: function (origin, callback) {
-if (
-!origin ||
-origin === "https://dogfood-nu.vercel.app" ||
-/^http://localhost:\d+$/.test(origin)
-) {
-callback(null, true);
-} else {
-callback(new Error("Not allowed by CORS"));
-}
-},
-credentials: true
-})
+  cors({
+    origin: function (origin, callback) {
+      if (
+        !origin ||
+        origin === "https://dogfood-nu.vercel.app" ||
+        /^http:\/\/localhost:\d+$/.test(origin)
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
+  })
 );
 
-// =========================
-// JSON
-// =========================
-
 app.use(express.json());
-
-// =========================
-// ROUTES
-// =========================
 
 const authRoutes = require("./routes/authRoutes");
 const judgeRoutes = require("./routes/judgeRoutes");
@@ -50,10 +38,6 @@ const hackathonRoutes = require("./routes/hackathonRoutes");
 const resultRoutes = require("./routes/resultRoutes");
 const teamRoutes = require("./routes/teamRoutes");
 
-// =========================
-// USE ROUTES
-// =========================
-
 app.use("/api/auth", authRoutes);
 app.use("/api/judges", judgeRoutes);
 app.use("/api/judge-scores", judgeScoreRoutes);
@@ -62,32 +46,21 @@ app.use("/api/hackathons", hackathonRoutes);
 app.use("/api/results", resultRoutes);
 app.use("/api/teams", teamRoutes);
 
-// =========================
-// HOME
-// =========================
-
 app.get("/", (req, res) => {
-res.json({
-message: "DOGFOOD backend is running"
+  res.json({
+    message: "DOGFOOD backend is running"
+  });
 });
-});
-
-// =========================
-// DATABASE
-// =========================
 
 mongoose
-.connect(process.env.MONGO_URI)
-.then(() => {
-console.log("MongoDB Connected");
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
 
-```
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
-```
-
-})
-.catch((error) => {
-console.error("MongoDB connection failed:", error);
-});
+    app.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
+  })
+  .catch((error) => {
+    console.error("MongoDB connection failed:", error);
+  });
